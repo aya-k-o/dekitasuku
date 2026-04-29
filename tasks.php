@@ -21,14 +21,8 @@ $stmt = $pdo->prepare('SELECT id, title, points FROM tasks WHERE child_id = ? AN
 $stmt->execute([$child_id]);
 $tasks = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>できたすく</title>
-</head>
-<body>
+
+<?php require_once 'header.php'; ?>
     <h1><?= htmlspecialchars($child['name']) ?>のタスク</h1>
     <p><?= htmlspecialchars($child['total_points']) ?>ポイント</p>
     <?php if (empty($tasks)): ?>
@@ -46,5 +40,4 @@ $tasks = $stmt->fetchAll(PDO::FETCH_ASSOC);
             </div>
         <?php endforeach; ?>
     <?php endif; ?>
-</body>
-</html>
+<?php require_once 'footer.php'; ?>

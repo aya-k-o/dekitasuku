@@ -34,14 +34,8 @@ foreach ($diaries as $diary) {
     $grouped[$month][] = $diary;
 }
 ?>
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>できたすく</title>
-</head>
-<body>
+
+<?php require_once 'header.php'; ?>
     <h1><?= htmlspecialchars($child['name']) ?>のにっき</h1>
     <a href="diary.php?child_id=<?= htmlspecialchars($child_id) ?>">にっきをかく</a>
 
@@ -64,5 +58,4 @@ foreach ($diaries as $diary) {
             <?php endforeach; ?>
         <?php endforeach; ?>
     <?php endif; ?>
-</body>
-</html>
+<?php require_once 'footer.php'; ?>
