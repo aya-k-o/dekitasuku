@@ -1,0 +1,96 @@
+<?php
+session_start();
+
+if (!isset($_SESSION['admin']) || $_SESSION['admin'] !== true) {
+    header('Location: admin.php');
+    exit;
+}
+
+require_once 'functions.php';
+require_once 'db_connect.php';
+
+$children = $pdo->query('SELECT id, name FROM children WHERE deleted_at IS NULL')->fetchAll(PDO::FETCH_ASSOC);
+
+$child_id = isset($_GET['child_id']) ? (int)$_GET['child_id'] : 0;
+
+if ($child_id === 0 && !empty($children)) {
+    $child_id = $children[0]['id'];
+}
+
+$rewards = [];
+if ($child_id !== 0) {
+    $stmt = $pdo->prepare('SELECT id, title, points_required FROM rewards WHERE child_id = ? AND deleted_at IS NULL');
+    $stmt->execute([$child_id]);
+    $rewards = $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $action = isset($_POST['action']) ? $_POST['action'] : '';
+
+    if ($action === 'add') {
+        $title = isset($_POST['title']) ? trim($_POST['title']) : '';
+        $points_required = isset($_POST['points_required']) ? (int)$_POST['points_required'] : 0;
+        $post_child_id = isset($_POST['child_id']) ? (int)$_POST['child_id'] : 0;
+
+        if ($title !== '' && $points_required > 0 && $post_child_id !== 0) {
+            $stmt = $pdo->prepare('INSERT INTO rewards (child_id, title, points_required) VALUES (?, ?, ?)');
+            $stmt->execute([$post_child_id, $title, $points_required]);
+        }
+    }
+
+    if ($action === 'delete') {
+        $reward_id = isset($_POST['reward_id']) ? (int)$_POST['reward_id'] : 0;
+        if ($reward_id !== 0) {
+            $stmt = $pdo->prepare('UPDATE rewards SET deleted_at = NOW() WHERE id = ?');
+            $stmt->execute([$reward_id]);
+        }
+    }
+
+    header('Location: admin_rewards.php?child_id=' . (int)$_POST['child_id']);
+    exit;
+}
+?>
+<?php require_once 'header.php'; ?>
+    <h1>報酬管理</h1>
+    <a href="admin_tasks.php">タスク</a>
+    <a href="admin_children.php">子ども</a>
+    <a href="admin_rewards.php">報酬</a>
+    <a href="admin_diaries.php">日記</a>
+    <a href="admin_logs.php">達成ログ</a>
+
+    <h2>子どもを選ぶ</h2>
+    <?php foreach ($children as $child): ?>
+        <a href="admin_rewards.php?child_id=<?= h($child['id']) ?>">
+            <?= h($child['name']) ?>
+        </a>
+    <?php endforeach; ?>
+
+    <?php if ($child_id !== 0): ?>
+        <h2>報酬追加</h2>
+        <form method="post">
+            <input type="hidden" name="action" value="add">
+            <input type="hidden" name="child_id" value="<?= h($child_id) ?>">
+            <input type="text" name="title" placeholder="報酬名">
+            <input type="number" name="points_required" value="50" min="1">
+            <button type="submit">追加</button>
+        </form>
+
+        <h2>報酬一覧</h2>
+        <?php if (empty($rewards)): ?>
+            <p>報酬が登録されていません</p>
+        <?php else: ?>
+            <?php foreach ($rewards as $reward): ?>
+                <div>
+                    <span><?= h($reward['title']) ?></span>
+                    <span><?= h($reward['points_required']) ?>ポイント</span>
+                    <form method="post" class="form-inline">
+                        <input type="hidden" name="action" value="delete">
+                        <input type="hidden" name="reward_id" value="<?= h($reward['id']) ?>">
+                        <input type="hidden" name="child_id" value="<?= h($child_id) ?>">
+                        <button type="submit">削除</button>
+                    </form>
+                </div>
+            <?php endforeach; ?>
+        <?php endif; ?>
+    <?php endif; ?>
+<?php require_once 'footer.php'; ?>
