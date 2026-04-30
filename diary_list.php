@@ -36,23 +36,23 @@ foreach ($diaries as $diary) {
 ?>
 
 <?php require_once 'header.php'; ?>
-    <h1><?= htmlspecialchars($child['name']) ?>のにっき</h1>
-    <a href="diary.php?child_id=<?= htmlspecialchars($child_id) ?>">にっきをかく</a>
+    <h1><?= h($child['name']) ?>のにっき</h1>
+    <a href="diary.php?child_id=<?= h($child_id) ?>">にっきをかく</a>
 
     <?php if (empty($grouped)): ?>
         <p>まだにっきがないよ！</p>
     <?php else: ?>
         <?php foreach ($grouped as $month => $entries): ?>
-            <h2><?= htmlspecialchars($month) ?></h2>
+            <h2><?= h($month) ?></h2>
             <?php foreach ($entries as $diary): ?>
                 <div>
-                    <p><?= htmlspecialchars($diary['diary_date']) ?></p>
-                    <p>からだ：<?= htmlspecialchars($diary['body_score']) ?> こころ：<?= htmlspecialchars($diary['mind_score']) ?></p>
+                    <p><?= h($diary['diary_date']) ?></p>
+                    <p>からだ：<?= h($diary['body_score']) ?> こころ：<?= h($diary['mind_score']) ?></p>
                     <?php if ($diary['content']): ?>
-                        <p><?= htmlspecialchars($diary['content']) ?></p>
+                        <p><?= h($diary['content']) ?></p>
                     <?php endif; ?>
                     <?php if ($diary['reply_content']): ?>
-                        <p>へんじ：<?= htmlspecialchars($diary['reply_content']) ?></p>
+                        <p>へんじ：<?= h($diary['reply_content']) ?></p>
                     <?php endif; ?>
                 </div>
             <?php endforeach; ?>

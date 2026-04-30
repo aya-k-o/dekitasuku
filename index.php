@@ -1,4 +1,5 @@
 <?php
+require_once 'functions.php';
 require_once 'db_connect.php';
 
 $stmt = $pdo->prepare('SELECT id, name FROM children WHERE deleted_at IS NULL');
@@ -8,8 +9,8 @@ $children = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <?php require_once 'header.php'; ?>
     <h1>だれがつかうの？</h1>
     <?php foreach ($children as $child): ?>
-        <a href="tasks.php?child_id=<?= htmlspecialchars($child['id']) ?>">
-            <?= htmlspecialchars($child['name']) ?>
+        <a href="tasks.php?child_id=<?= h($child['id']) ?>">
+            <?= h($child['name']) ?>
         </a>
     <?php endforeach; ?>
 <?php require_once 'footer.php'; ?>

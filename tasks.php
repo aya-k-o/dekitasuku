@@ -23,18 +23,18 @@ $tasks = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <?php require_once 'header.php'; ?>
-    <h1><?= htmlspecialchars($child['name']) ?>のタスク</h1>
-    <p><?= htmlspecialchars($child['total_points']) ?>ポイント</p>
+    <h1><?= h($child['name']) ?>のタスク</h1>
+    <p><?= h($child['total_points']) ?>ポイント</p>
     <?php if (empty($tasks)): ?>
         <p>タスクがまだないよ！</p>
     <?php else: ?>
         <?php foreach ($tasks as $task): ?>
             <div>
-                <span><?= htmlspecialchars($task['title']) ?></span>
-                <span><?= htmlspecialchars($task['points']) ?>ポイント</span>
+                <span><?= h($task['title']) ?></span>
+                <span><?= h($task['points']) ?>ポイント</span>
                 <form method="post" action="complete.php">
-                    <input type="hidden" name="task_id" value="<?= htmlspecialchars($task['id']) ?>">
-                    <input type="hidden" name="child_id" value="<?= htmlspecialchars($child_id) ?>">
+                    <input type="hidden" name="task_id" value="<?= h($task['id']) ?>">
+                    <input type="hidden" name="child_id" value="<?= h($child_id) ?>">
                     <button type="submit">できた！</button>
                 </form>
             </div>

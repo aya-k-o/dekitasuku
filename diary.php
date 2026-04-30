@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 <?php require_once 'header.php'; ?>
-    <h1><?= htmlspecialchars($child['name']) ?>のにっき</h1>
+    <h1><?= h($child['name']) ?>のにっき</h1>
 
     <form method="post">
         <div>
