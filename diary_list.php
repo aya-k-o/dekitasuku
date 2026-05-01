@@ -37,7 +37,7 @@ foreach ($diaries as $diary) {
 
 <?php require_once 'header.php'; ?>
     <h1><?= h($child['name']) ?>のにっき</h1>
-    <a href="diary.php?child_id=<?= h($child_id) ?>">にっきをかく</a>
+    <?php require_once 'child_nav.php'; ?>
 
     <?php if (empty($grouped)): ?>
         <p>まだにっきがないよ！</p>

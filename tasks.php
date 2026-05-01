@@ -24,6 +24,7 @@ $tasks = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 <?php require_once 'header.php'; ?>
     <h1><?= h($child['name']) ?>のタスク</h1>
+    <?php require_once 'child_nav.php'; ?>
     <p><?= h($child['total_points']) ?>ポイント</p>
     <?php if (empty($tasks)): ?>
         <p>タスクがまだないよ！</p>
