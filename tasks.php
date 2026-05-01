@@ -25,18 +25,20 @@ $tasks = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <?php require_once 'header.php'; ?>
     <h1><?= h($child['name']) ?>のタスク</h1>
     <?php require_once 'child_nav.php'; ?>
-    <p><?= h($child['total_points']) ?>ポイント</p>
+    <p class="points"><?= h($child['total_points']) ?>ポイント</p>
     <?php if (empty($tasks)): ?>
         <p>タスクがまだないよ！</p>
     <?php else: ?>
         <?php foreach ($tasks as $task): ?>
-            <div>
-                <span><?= h($task['title']) ?></span>
-                <span><?= h($task['points']) ?>ポイント</span>
+            <div class="task-card">
+                <div>
+                    <span><?= h($task['title']) ?></span>
+                    <span><?= h($task['points']) ?>ポイント</span>
+                </div>
                 <form method="post" action="complete.php">
                     <input type="hidden" name="task_id" value="<?= h($task['id']) ?>">
                     <input type="hidden" name="child_id" value="<?= h($child_id) ?>">
-                    <button type="submit">できた！</button>
+                    <button type="submit" class="btn-done">できた！</button>
                 </form>
             </div>
         <?php endforeach; ?>

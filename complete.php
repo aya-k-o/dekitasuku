@@ -18,6 +18,14 @@ if (!$task) {
     exit;
 }
 
+$stmt = $pdo->prepare('SELECT id FROM task_logs WHERE task_id = ? AND completed_date = CURDATE() AND deleted_at IS NULL');
+$stmt->execute([$task_id]);
+$already_done = $stmt->fetch(PDO::FETCH_ASSOC);
+
+if ($already_done) {
+    header('Location: tasks.php?child_id=' . $child_id);
+    exit;
+}
 try {
     $pdo->beginTransaction();
 

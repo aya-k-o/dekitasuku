@@ -9,8 +9,8 @@ $children = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <?php require_once 'header.php'; ?>
     <h1>だれがつかうの？</h1>
     <?php foreach ($children as $child): ?>
-        <a href="tasks.php?child_id=<?= h($child['id']) ?>">
-            <?= h($child['name']) ?>
-        </a>
+        <a href="tasks.php?child_id=<?= h($child['id']) ?>" class="child-btn">
+    <?= h($child['name']) ?>
+</a>
     <?php endforeach; ?>
 <?php require_once 'footer.php'; ?>

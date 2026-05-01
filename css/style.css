@@ -9,9 +9,109 @@ body {
     font-family: sans-serif;
     margin: 0;
     padding: 16px;
+    background-color: var(--color-bg);
+    color: var(--color-text);
 }
-
 /* フォーム */
 .form-inline {
     display: inline;
+}
+
+/* 色の変数 */
+:root {
+    --color-primary: #FF6B35;
+    --color-secondary: #4ECDC4;
+    --color-accent: #FFE66D;
+    --color-bg: #FFF9F0;
+    --color-nav-bg: #FFE5D9;
+    --color-text: #333333;
+    --color-admin: #4A90D9;
+}
+
+/* リンク */
+a {
+    color: var(--color-primary);
+}
+
+/* 子ども選択ボタン */
+.child-btn {
+    display: block;
+    width: 100%;
+    padding: 20px;
+    margin: 12px 0;
+    background-color: var(--color-primary);
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 999px;
+}
+
+/* ナビゲーション */
+nav {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+    padding: 8px;
+    background-color: var(--color-nav-bg);
+    border-radius: 999px;
+}
+
+nav a {
+    padding: 8px 20px;
+    border-radius: 999px;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+    color: var(--color-primary);
+}
+
+nav a:hover {
+    background-color: var(--color-primary);
+    color: white;
+}
+
+/* ポイント表示 */
+.points {
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--color-primary);
+    margin-bottom: 16px;
+}
+
+/* タスクカード */
+.task-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    margin-bottom: 12px;
+    background-color: white;
+    border-radius: 16px;
+    border: 2px solid var(--color-accent);
+}
+
+.task-title {
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--color-text);
+}
+
+.task-points {
+    font-size: 14px;
+    color: var(--color-primary);
+    font-weight: bold;
+}
+
+/* できた！ボタン */
+.btn-done {
+    padding: 12px 24px;
+    background-color: var(--color-primary);
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    border-radius: 999px;
+    cursor: pointer;
 }

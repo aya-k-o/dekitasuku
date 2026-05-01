@@ -54,6 +54,7 @@ $children = $pdo->query('SELECT id, name, total_points FROM children WHERE delet
                     <input type="hidden" name="del_id" value="<?= h($child['id']) ?>">
                     <button type="submit">削除</button>
                 </form>
+                <a href="tasks.php?child_id=<?= h($child['id']) ?>">子どもの画面を見る</a>
             </div>
         <?php endforeach; ?>
     <?php endif; ?>

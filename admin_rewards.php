@@ -49,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <h1>報酬管理</h1>
    <?php require_once 'admin_nav.php'; ?>
 
-    <h2>子どもを選ぶ</h2>
+    <h2>お子さんを選んでください</h2>
     <?php foreach ($children as $child): ?>
         <a href="admin_rewards.php?child_id=<?= h($child['id']) ?>">
             <?= h($child['name']) ?>
