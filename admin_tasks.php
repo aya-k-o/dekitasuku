@@ -1,11 +1,5 @@
 <?php
-session_start();
-
-if (!isset($_SESSION['admin']) || $_SESSION['admin'] !== true) {
-    header('Location: admin.php');
-    exit;
-}
-
+require_once 'admin_auth.php';
 require_once 'functions.php';
 require_once 'db_connect.php';
 
@@ -52,12 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 ?>
 <?php require_once 'header.php'; ?>
     <h1>タスク管理</h1>
-    <a href="admin_tasks.php">タスク</a>
-    <a href="admin_children.php">子ども</a>
-    <a href="admin_rewards.php">報酬</a>
-    <a href="admin_diaries.php">日記</a>
-    <a href="admin_logs.php">達成ログ</a>
-
+<?php require_once 'admin_nav.php'; ?>
     <h2>子どもを選ぶ</h2>
     <?php foreach ($children as $child): ?>
         <a href="admin_tasks.php?child_id=<?= h($child['id']) ?>">
