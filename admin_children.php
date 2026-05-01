@@ -35,10 +35,10 @@ $children = $pdo->query('SELECT id, name, total_points FROM children WHERE delet
     <?php require_once 'admin_nav.php'; ?>
 
     <h2>子ども追加</h2>
-    <form method="post">
+    <form method="post" class="admin-form">
         <input type="hidden" name="action" value="add">
-        <input type="text" name="name" placeholder="子どもの名前">
-        <button type="submit">追加</button>
+        <input type="text" name="name" placeholder="子どもの名前" class="admin-input">
+        <button type="submit" class="btn-admin">追加</button>
     </form>
 
     <h2>子ども一覧</h2>
@@ -46,15 +46,19 @@ $children = $pdo->query('SELECT id, name, total_points FROM children WHERE delet
         <p>子どもが登録されていません</p>
     <?php else: ?>
         <?php foreach ($children as $child): ?>
-            <div>
-                <span><?= h($child['name']) ?></span>
-                <span><?= h($child['total_points']) ?>ポイント</span>
-                <form method="post" class="form-inline">
-                    <input type="hidden" name="action" value="delete">
-                    <input type="hidden" name="del_id" value="<?= h($child['id']) ?>">
-                    <button type="submit">削除</button>
-                </form>
-                <a href="tasks.php?child_id=<?= h($child['id']) ?>">子どもの画面を見る</a>
+            <div class="admin-card">
+                <div>
+                    <span><?= h($child['name']) ?></span>
+                    <span style="color: #888; margin-left: 8px;"><?= h($child['total_points']) ?>ポイント</span>
+                </div>
+                <div>
+                    <a href="tasks.php?child_id=<?= h($child['id']) ?>" class="btn-admin" style="margin-right: 8px; text-decoration: none;">子どもの画面を見る</a>
+                    <form method="post" class="form-inline">
+                        <input type="hidden" name="action" value="delete">
+                        <input type="hidden" name="del_id" value="<?= h($child['id']) ?>">
+                        <button type="submit" class="btn-delete">削除</button>
+                    </form>
+                </div>
             </div>
         <?php endforeach; ?>
     <?php endif; ?>

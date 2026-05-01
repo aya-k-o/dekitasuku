@@ -41,24 +41,23 @@ $diaries = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <p>日記がありません</p>
     <?php else: ?>
         <?php foreach ($diaries as $diary): ?>
-            <div>
-                <p><?= h($diary['child_name']) ?> / <?= h($diary['diary_date']) ?></p>
-                <p>からだ：<?= h($diary['body_score']) ?> こころ：<?= h($diary['mind_score']) ?></p>
-                <?php if ($diary['content']): ?>
-                    <p><?= h($diary['content']) ?></p>
-                <?php endif; ?>
-                <?php if ($diary['reply_content']): ?>
-                    <p>返信済み：<?= h($diary['reply_content']) ?></p>
-                <?php else: ?>
-                    <form method="post">
-                        <input type="hidden" name="action" value="reply">
-                        <input type="hidden" name="diary_id" value="<?= h($diary['id']) ?>">
-                        <textarea name="content" rows="3" placeholder="返信を入力"></textarea><br>
-                        <button type="submit">返信する</button>
-                    </form>
-                <?php endif; ?>
-            </div>
-            <hr>
+           <div class="admin-card admin-diary-card">
+    <p><strong><?= h($diary['child_name']) ?></strong> / <?= h($diary['diary_date']) ?></p>
+    <p class="diary-score-admin">からだ：<?= h($diary['body_score']) ?> こころ：<?= h($diary['mind_score']) ?></p>
+    <?php if ($diary['content']): ?>
+        <p><?= h($diary['content']) ?></p>
+    <?php endif; ?>
+    <?php if ($diary['reply_content']): ?>
+        <p class="diary-replied">返信済み：<?= h($diary['reply_content']) ?></p>
+    <?php else: ?>
+        <form method="post">
+            <input type="hidden" name="action" value="reply">
+            <input type="hidden" name="diary_id" value="<?= h($diary['id']) ?>">
+            <textarea name="content" rows="3" placeholder="返信を入力" class="admin-input reply-textarea"></textarea><br>
+            <button type="submit" class="btn-admin">返信する</button>
+        </form>
+    <?php endif; ?>
+</div>
         <?php endforeach; ?>
     <?php endif; ?>
 <?php require_once 'footer.php'; ?>

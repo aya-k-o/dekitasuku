@@ -115,3 +115,230 @@ nav a:hover {
     border-radius: 999px;
     cursor: pointer;
 }
+
+/* 体調スコア選択 */
+.score-group {
+    margin-bottom: 16px;
+}
+
+.score-label {
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--color-text);
+    display: block;
+    margin-bottom: 8px;
+}
+
+.score-select {
+    width: 100%;
+    padding: 12px;
+    font-size: 18px;
+    border: 2px solid var(--color-accent);
+    border-radius: 12px;
+    background-color: white;
+    color: var(--color-text);
+}
+
+/* 日記テキストエリア */
+.diary-textarea {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border: 2px solid var(--color-accent);
+    border-radius: 12px;
+    background-color: white;
+    color: var(--color-text);
+    resize: vertical;
+}
+
+/* 送信ボタン */
+.btn-submit {
+    display: block;
+    width: 100%;
+    padding: 16px;
+    background-color: var(--color-secondary);
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    border: none;
+    border-radius: 999px;
+    cursor: pointer;
+    margin-top: 16px;
+}
+/* 日記一覧 */
+.diary-month {
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--color-primary);
+    margin-top: 24px;
+    margin-bottom: 12px;
+}
+
+.diary-card {
+    background-color: white;
+    border-radius: 16px;
+    border: 2px solid var(--color-accent);
+    padding: 16px 20px;
+    margin-bottom: 12px;
+}
+
+.diary-date {
+    font-size: 14px;
+    color: var(--color-text);
+    margin-bottom: 8px;
+}
+
+.diary-score {
+    font-size: 14px;
+    color: var(--color-primary);
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.diary-content {
+    font-size: 16px;
+    color: var(--color-text);
+    margin-bottom: 8px;
+}
+
+.diary-reply {
+    font-size: 14px;
+    color: var(--color-secondary);
+    font-weight: bold;
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid var(--color-accent);
+}
+
+/* 管理画面共通 */
+.admin-nav {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 24px;
+    padding: 8px;
+    background-color: #E8F0FE;
+    border-radius: 8px;
+}
+
+.admin-nav a {
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    text-decoration: none;
+    color: var(--color-admin);
+    font-weight: bold;
+}
+
+.admin-nav a:hover {
+    background-color: var(--color-admin);
+    color: white;
+}
+
+/* 管理画面カード */
+.admin-card {
+    background-color: white;
+    border-radius: 8px;
+    border: 1px solid #E0E0E0;
+    padding: 16px 20px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* 管理画面ボタン */
+.btn-admin {
+    padding: 8px 16px;
+    background-color: var(--color-admin);
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.btn-delete {
+    padding: 8px 16px;
+    background-color: #E53935;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+/* 管理画面フォーム */
+.admin-form {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 24px;
+    align-items: center;
+}
+
+.admin-input {
+    padding: 8px 12px;
+    font-size: 14px;
+    border: 1px solid #E0E0E0;
+    border-radius: 8px;
+    flex: 1;
+}
+
+/* ログインフォーム */
+.login-form {
+    max-width: 400px;
+    margin: 40px auto;
+    background-color: white;
+    border-radius: 12px;
+    border: 1px solid #E0E0E0;
+    padding: 32px;
+}
+
+.login-input {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #E0E0E0;
+    border-radius: 8px;
+    margin-bottom: 16px;
+}
+
+.btn-login {
+    width: 100%;
+    padding: 12px;
+    background-color: var(--color-admin);
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+/* 日記管理カード */
+.admin-diary-card {
+    display: block;
+}
+
+.diary-score-admin {
+    color: var(--color-admin);
+}
+
+.diary-replied {
+    color: #888;
+}
+
+.reply-textarea {
+    width: 100%;
+    margin-bottom: 8px;
+}
+
+/* 達成ログカード */
+.admin-log-card {
+    display: block;
+}
+
+.log-detail {
+    color: #888;
+}

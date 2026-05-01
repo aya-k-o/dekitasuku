@@ -38,9 +38,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <?php require_once 'child_nav.php'; ?>
 
     <form method="post">
-        <div>
-            <label>きょうのからだのちょうし</label>
-            <select name="body_score">
+        <div class="score-group">
+            <label class="score-label">きょうのからだのちょうし</label>
+            <select name="body_score" class="score-select">
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -48,9 +48,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <option value="5">5</option>
             </select>
         </div>
-        <div>
-            <label>きょうのこころのちょうし</label>
-            <select name="mind_score">
+        <div class="score-group">
+            <label class="score-label">きょうのこころのちょうし</label>
+            <select name="mind_score" class="score-select">
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -58,10 +58,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <option value="5">5</option>
             </select>
         </div>
-        <div>
-            <label>きょうのこと（かかなくてもいいよ）</label><br>
-            <textarea name="content" rows="5"></textarea>
+        <div class="score-group">
+            <label class="score-label">きょうのこと（かかなくてもいいよ）</label>
+            <textarea name="content" rows="5" class="diary-textarea"></textarea>
         </div>
-        <button type="submit">かけた！</button>
+        <button type="submit" class="btn-submit">かけた！</button>
     </form>
 <?php require_once 'footer.php'; ?>

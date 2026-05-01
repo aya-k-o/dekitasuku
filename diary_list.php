@@ -43,16 +43,16 @@ foreach ($diaries as $diary) {
         <p>まだにっきがないよ！</p>
     <?php else: ?>
         <?php foreach ($grouped as $month => $entries): ?>
-            <h2><?= h($month) ?></h2>
+            <h2 class="diary-month"><?= h($month) ?></h2>
             <?php foreach ($entries as $diary): ?>
-                <div>
-                    <p><?= h($diary['diary_date']) ?></p>
-                    <p>からだ：<?= h($diary['body_score']) ?> こころ：<?= h($diary['mind_score']) ?></p>
+                <div class="diary-card">
+                    <p class="diary-date"><?= h($diary['diary_date']) ?></p>
+                    <p class="diary-score">からだ：<?= h($diary['body_score']) ?> こころ：<?= h($diary['mind_score']) ?></p>
                     <?php if ($diary['content']): ?>
-                        <p><?= h($diary['content']) ?></p>
+                        <p class="diary-content"><?= h($diary['content']) ?></p>
                     <?php endif; ?>
                     <?php if ($diary['reply_content']): ?>
-                        <p>へんじ：<?= h($diary['reply_content']) ?></p>
+                        <p class="diary-reply">へんじ：<?= h($diary['reply_content']) ?></p>
                     <?php endif; ?>
                 </div>
             <?php endforeach; ?>

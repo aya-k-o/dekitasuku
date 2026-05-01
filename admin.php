@@ -19,15 +19,17 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] === true) {
 }
 ?>
 <?php require_once 'header.php'; ?>
-    <h1>かんりしゃログイン</h1>
+    <div class="login-form">
+        <h1>管理者ログイン</h1>
 
-    <?php if (isset($error)): ?>
-        <p><?= h($error) ?></p>
-    <?php endif; ?>
+        <?php if (isset($error)): ?>
+            <p style="color: #E53935;"><?= h($error) ?></p>
+        <?php endif; ?>
 
-    <form method="post">
-        <label>パスワード</label><br>
-        <input type="password" name="password">
-        <button type="submit">ログイン</button>
-    </form>
+        <form method="post">
+            <label>パスワード</label><br>
+            <input type="password" name="password" class="login-input">
+            <button type="submit" class="btn-login">ログイン</button>
+        </form>
+    </div>
 <?php require_once 'footer.php'; ?>

@@ -23,11 +23,10 @@ $logs = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <p>達成ログがありません</p>
     <?php else: ?>
         <?php foreach ($logs as $log): ?>
-            <div>
-                <p><?= h($log['child_name']) ?> / <?= h($log['completed_date']) ?></p>
-                <p><?= h($log['title']) ?> / <?= h($log['points']) ?>ポイント</p>
+            <div class="admin-card admin-log-card">
+                <p><strong><?= h($log['child_name']) ?></strong> / <?= h($log['completed_date']) ?></p>
+                <p class="log-detail"><?= h($log['title']) ?> / <?= h($log['points']) ?>ポイント</p>
             </div>
-            <hr>
         <?php endforeach; ?>
     <?php endif; ?>
 <?php require_once 'footer.php'; ?>

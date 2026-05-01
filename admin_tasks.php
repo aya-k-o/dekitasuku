@@ -46,22 +46,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 ?>
 <?php require_once 'header.php'; ?>
     <h1>タスク管理</h1>
-<?php require_once 'admin_nav.php'; ?>
+    <?php require_once 'admin_nav.php'; ?>
+
     <h2>お子さんを選んでください</h2>
-    <?php foreach ($children as $child): ?>
-        <a href="admin_tasks.php?child_id=<?= h($child['id']) ?>">
-            <?= h($child['name']) ?>
-        </a>
-    <?php endforeach; ?>
+    <div class="admin-form">
+        <?php foreach ($children as $child): ?>
+            <a href="admin_tasks.php?child_id=<?= h($child['id']) ?>" class="btn-admin">
+                <?= h($child['name']) ?>
+            </a>
+        <?php endforeach; ?>
+    </div>
 
     <?php if ($child_id !== 0): ?>
         <h2>タスク追加</h2>
-        <form method="post">
+        <form method="post" class="admin-form">
             <input type="hidden" name="action" value="add">
             <input type="hidden" name="child_id" value="<?= h($child_id) ?>">
-            <input type="text" name="title" placeholder="タスク名">
-            <input type="number" name="points" value="10" min="1">
-            <button type="submit">追加</button>
+            <input type="text" name="title" placeholder="タスク名" class="admin-input">
+            <input type="number" name="points" value="10" min="1" class="admin-input" style="width: 80px; flex: none;">
+            <button type="submit" class="btn-admin">追加</button>
         </form>
 
         <h2>タスク一覧</h2>
@@ -69,14 +72,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <p>タスクがありません</p>
         <?php else: ?>
             <?php foreach ($tasks as $task): ?>
-                <div>
-                    <span><?= h($task['title']) ?></span>
-                    <span><?= h($task['points']) ?>ポイント</span>
+                <div class="admin-card">
+                    <div>
+                        <span><?= h($task['title']) ?></span>
+                        <span style="color: #888; margin-left: 8px;"><?= h($task['points']) ?>ポイント</span>
+                    </div>
                     <form method="post" class="form-inline">
                         <input type="hidden" name="action" value="delete">
                         <input type="hidden" name="task_id" value="<?= h($task['id']) ?>">
                         <input type="hidden" name="child_id" value="<?= h($child_id) ?>">
-                        <button type="submit">削除</button>
+                        <button type="submit" class="btn-delete">削除</button>
                     </form>
                 </div>
             <?php endforeach; ?>
