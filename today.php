@@ -1,8 +1,9 @@
 <?php
+session_start();
 require_once 'functions.php';
 require_once 'db_connect.php';
 
-$child_id = isset($_GET['child_id']) ? (int)$_GET['child_id'] : 0;
+$child_id = isset($_SESSION['child_id']) ? (int)$_SESSION['child_id'] : 0;
 
 if ($child_id === 0) {
   header('Location: index.php');
@@ -51,12 +52,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <?php require_once 'header.php'; ?>
 <h1><?= h($child['name']) ?>のきょう</h1>
-<nav class="child-nav">
-  <a href="today.php?child_id=<?= h($child_id) ?>">きょう</a>
-  <a href="diary_list.php?child_id=<?= h($child_id) ?>">きろく</a>
-</nav>
+<?php require_once 'child_nav.php'; ?>
 <p class="points">⭐ <?= h($child['total_points']) ?>ポイント</p>
-
 <h2 class="m-section">タスク</h2>
 <?php if (empty($tasks)): ?>
   <p>タスクがまだないよ！</p>

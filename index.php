@@ -1,6 +1,16 @@
 <?php
+session_start();
 require_once 'functions.php';
 require_once 'db_connect.php';
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $child_id = isset($_POST['child_id']) ? (int)$_POST['child_id'] : 0;
+    if ($child_id !== 0) {
+        $_SESSION['child_id'] = $child_id;
+    }
+    header('Location: today.php');
+    exit;
+}
 
 $stmt = $pdo->prepare('SELECT id, name FROM children WHERE deleted_at IS NULL');
 $stmt->execute();
@@ -9,8 +19,9 @@ $children = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <?php require_once 'header.php'; ?>
     <h1>だれがつかうの？</h1>
     <?php foreach ($children as $child): ?>
-        <a href="today.php?child_id=<?= h($child['id']) ?>" class="child-btn">
-    <?= h($child['name']) ?>
-</a>
+        <form method="post">
+            <input type="hidden" name="child_id" value="<?= h($child['id']) ?>">
+            <button type="submit" class="child-btn"><?= h($child['name']) ?></button>
+        </form>
     <?php endforeach; ?>
 <?php require_once 'footer.php'; ?>

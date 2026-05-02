@@ -1,7 +1,9 @@
 <?php
+session_start();
+require_once 'functions.php';
 require_once 'db_connect.php';
 
-$child_id = isset($_GET['child_id']) ? (int)$_GET['child_id'] : 0;
+$child_id = isset($_SESSION['child_id']) ? (int)$_SESSION['child_id'] : 0;
 
 if ($child_id === 0) {
     header('Location: index.php');
