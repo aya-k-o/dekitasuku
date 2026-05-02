@@ -23,7 +23,7 @@ $stmt->execute([$task_id]);
 $already_done = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if ($already_done) {
-    header('Location: tasks.php?child_id=' . $child_id);
+    header('Location: today.php?child_id=' . $child_id);
     exit;
 }
 try {
@@ -47,6 +47,6 @@ $redirect = isset($_POST['redirect']) ? $_POST['redirect'] : '';
 if ($redirect === 'today') {
     header('Location: today.php?child_id=' . $child_id);
 } else {
-    header('Location: tasks.php?child_id=' . $child_id);
+    header('Location: today.php?child_id=' . $child_id);
 }
 exit;
