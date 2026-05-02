@@ -27,6 +27,7 @@ $stmt = $pdo->prepare('
 ');
 $stmt->execute([$child_id]);
 $diaries = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$face_icons = [1 => '😢', 2 => '😕', 3 => '😊', 4 => '😄', 5 => '🤩'];
 
 $grouped = [];
 foreach ($diaries as $diary) {
@@ -36,26 +37,26 @@ foreach ($diaries as $diary) {
 ?>
 
 <?php require_once 'header.php'; ?>
-    <h1><?= h($child['name']) ?>のにっき</h1>
-    <?php require_once 'child_nav.php'; ?>
+<h1><?= h($child['name']) ?>のにっき</h1>
+<?php require_once 'child_nav.php'; ?>
 
-    <?php if (empty($grouped)): ?>
-        <p>まだにっきがないよ！</p>
-    <?php else: ?>
-        <?php foreach ($grouped as $month => $entries): ?>
-            <h2 class="diary-month"><?= h($month) ?></h2>
-            <?php foreach ($entries as $diary): ?>
-                <div class="diary-card">
-                    <p class="diary-date"><?= h($diary['diary_date']) ?></p>
-                    <p class="diary-score">からだ：<?= h($diary['body_score']) ?> こころ：<?= h($diary['mind_score']) ?></p>
-                    <?php if ($diary['content']): ?>
-                        <p class="diary-content"><?= h($diary['content']) ?></p>
-                    <?php endif; ?>
-                    <?php if ($diary['reply_content']): ?>
-                        <p class="diary-reply">へんじ：<?= h($diary['reply_content']) ?></p>
-                    <?php endif; ?>
-                </div>
-            <?php endforeach; ?>
+<?php if (empty($grouped)): ?>
+    <p>まだにっきがないよ！</p>
+<?php else: ?>
+    <?php foreach ($grouped as $month => $entries): ?>
+        <h2 class="diary-month"><?= h($month) ?></h2>
+        <?php foreach ($entries as $diary): ?>
+            <div class="diary-card">
+                <p class="diary-date"><?= h($diary['diary_date']) ?></p>
+                <p class="diary-score">からだ：<?= $face_icons[$diary['body_score']] ?> こころ：<?= $face_icons[$diary['mind_score']] ?></p>
+                 <?php if ($diary['content']): ?>    
+                    <p class="diary-content"><?= h($diary['content']) ?></p>
+                <?php endif; ?>
+                <?php if ($diary['reply_content']): ?>
+                    <p class="diary-reply">へんじ：<?= h($diary['reply_content']) ?></p>
+                <?php endif; ?>
+            </div>
         <?php endforeach; ?>
-    <?php endif; ?>
+    <?php endforeach; ?>
+<?php endif; ?>
 <?php require_once 'footer.php'; ?>

@@ -9,7 +9,7 @@ $children = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <?php require_once 'header.php'; ?>
     <h1>だれがつかうの？</h1>
     <?php foreach ($children as $child): ?>
-        <a href="tasks.php?child_id=<?= h($child['id']) ?>" class="child-btn">
+        <a href="today.php?child_id=<?= h($child['id']) ?>" class="child-btn">
     <?= h($child['name']) ?>
 </a>
     <?php endforeach; ?>

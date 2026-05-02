@@ -342,3 +342,66 @@ nav a:hover {
 .log-detail {
     color: #888;
 }
+
+/* 完了済みタスク */
+.task-done {
+    background-color: #F0FFF4;
+    border-color: #4ECDC4;
+}
+
+.task-done .task-title {
+    color: #888;
+    text-decoration: line-through;
+}
+
+.task-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 999px;
+    font-size: 12px;
+    background: #4ECDC4;
+    color: white;
+    margin-left: 6px;
+}
+
+.btn-done-completed {
+    background-color: #4ECDC4;
+    cursor: default;
+}
+
+/* 顔アイコン選択 */
+.face-select {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.face-btn {
+    font-size: 32px;
+    cursor: pointer;
+    opacity: 0.4;
+    transition: opacity 0.2s;
+}
+
+.face-btn.selected {
+    opacity: 1;
+}
+
+/* すでに書いたよメッセージ */
+.diary-already {
+    font-size: 18px;
+    font-weight: bold;
+    color: #4ECDC4;
+    text-align: center;
+    padding: 20px;
+}
+
+/* セクション見出し */
+.m-section {
+    font-size: 16px;
+    font-weight: bold;
+    color: #FF6B35;
+    margin: 16px 0 8px;
+    border-left: 3px solid #FF6B35;
+    padding-left: 8px;
+}
