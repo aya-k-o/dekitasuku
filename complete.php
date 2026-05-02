@@ -1,4 +1,6 @@
 <?php
+session_start();
+require_once 'functions.php';  // .envを読み込むため
 require_once 'db_connect.php';
 
 $task_id = isset($_POST['task_id']) ? (int)$_POST['task_id'] : 0;
@@ -8,7 +10,6 @@ if ($task_id === 0 || $child_id === 0) {
     header('Location: index.php');
     exit;
 }
-
 $stmt = $pdo->prepare('SELECT id, points FROM tasks WHERE id = ? AND deleted_at IS NULL');
 $stmt->execute([$task_id]);
 $task = $stmt->fetch(PDO::FETCH_ASSOC);

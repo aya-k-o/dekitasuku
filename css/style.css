@@ -418,3 +418,25 @@ nav a:hover {
 .reply-done {
     color: #888;
 }
+
+/* 日記への返信表示 */
+.diary-reply {
+  margin-top: 15px;
+  padding: 12px;
+  background-color: #FFF9F0;
+  border-left: 4px solid var(--primary-color);
+  border-radius: 8px;
+}
+
+.reply-label {
+  font-size: 0.9em;
+  font-weight: bold;
+  color: var(--primary-color);
+  margin: 0 0 8px 0;
+}
+
+.reply-text {
+  margin: 0;
+  line-height: 1.6;
+  color: #333;
+}

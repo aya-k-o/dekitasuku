@@ -4,7 +4,7 @@ session_start();
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = isset($_POST['password']) ? $_POST['password'] : '';
 
-    if ($password === $_ENV['ADMIN_PASS']) {
+if ($password === $_ENV['ADMIN_PASS']) {
         $_SESSION['admin'] = true;
         header('Location: admin.php');
         exit;

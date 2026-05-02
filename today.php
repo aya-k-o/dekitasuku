@@ -3,8 +3,12 @@ session_start();
 require_once 'functions.php';
 require_once 'db_connect.php';
 
-$child_id = isset($_SESSION['child_id']) ? (int)$_SESSION['child_id'] : 0;
-
+if (isset($_GET['child_id'])) {
+    $child_id = (int)$_GET['child_id'];
+    $_SESSION['child_id'] = $child_id;
+} else {
+    $child_id = isset($_SESSION['child_id']) ? (int)$_SESSION['child_id'] : 0;
+}
 if ($child_id === 0) {
   header('Location: index.php');
   exit;
@@ -29,7 +33,12 @@ $stmt->execute([$child_id]);
 $completed_rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 $completed_ids = array_column($completed_rows, 'task_id');
 
-$stmt = $pdo->prepare('SELECT id, content, body_score, mind_score FROM diaries WHERE child_id = ? AND diary_date = CURDATE() AND deleted_at IS NULL');
+$stmt = $pdo->prepare('
+  SELECT d.id, d.content, d.body_score, d.mind_score, dr.content as reply_content
+  FROM diaries d
+  LEFT JOIN diary_replies dr ON d.id = dr.diary_id AND dr.deleted_at IS NULL
+  WHERE d.child_id = ? AND d.diary_date = CURDATE() AND d.deleted_at IS NULL
+');
 $stmt->execute([$child_id]);
 $today_diary = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -90,9 +99,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <?php if ($today_diary['content']): ?>
       <p class="diary-content"><?= h($today_diary['content']) ?></p>
     <?php endif; ?>
+    <?php if ($today_diary['reply_content']): ?>
+      <div class="diary-reply">
+        <p class="reply-label">💌 おうちのひとから</p>
+        <p class="reply-text"><?= h($today_diary['reply_content']) ?></p>
+      </div>
+    <?php endif; ?>
   </div>
   <p class="diary-already">きょうもかけたね！</p>
-<?php else: ?>
+  
+  <?php else: ?>
    <form method="post">
     <div class="score-group">
       <label class="score-label">からだのちょうしは？</label>
