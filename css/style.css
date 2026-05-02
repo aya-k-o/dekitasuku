@@ -405,3 +405,18 @@ nav a:hover {
     border-left: 3px solid #FF6B35;
     padding-left: 8px;
 }
+/* タスク未完了 */
+.task-not-done {
+    color: #ccc;
+}
+
+/* 日記未記入 */
+.diary-not-written {
+    color: #ccc;
+}
+
+/* タスクポイント（管理画面） */
+.task-point-admin {
+    color: #888;
+    margin-left: 8px;
+}
