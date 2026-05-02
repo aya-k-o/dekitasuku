@@ -3,6 +3,21 @@ require_once 'admin_auth.php';
 require_once 'functions.php';
 require_once 'db_connect.php';
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $action = isset($_POST['action']) ? $_POST['action'] : '';
+    if ($action === 'reply') {
+        $diary_id = isset($_POST['diary_id']) ? (int)$_POST['diary_id'] : 0;
+        $content = isset($_POST['content']) ? trim($_POST['content']) : '';
+        if ($diary_id !== 0 && $content !== '') {
+            $stmt = $pdo->prepare('INSERT INTO diary_replies (diary_id, content) VALUES (?, ?)');
+            $stmt->execute([$diary_id, $content]);
+        }
+    }
+    header('Location: admin_today.php');
+    exit;
+}
+
+$face_icons = [1 => '😢', 2 => '😕', 3 => '😊', 4 => '😄', 5 => '🤩'];
 $face_icons = [1 => '😢', 2 => '😕', 3 => '😊', 4 => '😄', 5 => '🤩'];
 
 $children = $pdo->query('SELECT id, name, total_points FROM children WHERE deleted_at IS NULL')->fetchAll(PDO::FETCH_ASSOC);
@@ -62,6 +77,21 @@ foreach ($children as $child) {
                 <p class="diary-score-admin">からだ：<?= $face_icons[$data['diary']['body_score']] ?> こころ：<?= $face_icons[$data['diary']['mind_score']] ?></p>
                 <?php if ($data['diary']['content']): ?>
                     <p><?= h($data['diary']['content']) ?></p>
+                <?php endif; ?>
+                <?php
+                $stmt = $pdo->prepare('SELECT content FROM diary_replies WHERE diary_id = ? AND deleted_at IS NULL');
+                $stmt->execute([$data['diary']['id']]);
+                $reply = $stmt->fetch(PDO::FETCH_ASSOC);
+                ?>
+                <?php if ($reply): ?>
+                    <p class="reply-done">返信済み：<?= h($reply['content']) ?></p>
+                <?php else: ?>
+                    <form method="post">
+                        <input type="hidden" name="action" value="reply">
+                        <input type="hidden" name="diary_id" value="<?= h($data['diary']['id']) ?>">
+                        <textarea name="content" rows="2" placeholder="返信を入力" class="admin-input reply-textarea"></textarea><br>
+                        <button type="submit" class="btn-admin">返信する</button>
+                    </form>
                 <?php endif; ?>
             </div>
         <?php else: ?>

@@ -1,5 +1,17 @@
 /* できたすく スタイルシート */
 
+/* 色の変数 */
+:root {
+    --color-primary: #FF6B35;
+    --color-secondary: #4ECDC4;
+    --color-accent: #FFE66D;
+    --color-bg: #FFF9F0;
+    --color-nav-bg: #FFE5D9;
+    --color-text: #333333;
+    --color-admin: #4A90D9;
+}
+
+
 /* 全体 */
 * {
     box-sizing: border-box;
@@ -17,16 +29,6 @@ body {
     display: inline;
 }
 
-/* 色の変数 */
-:root {
-    --color-primary: #FF6B35;
-    --color-secondary: #4ECDC4;
-    --color-accent: #FFE66D;
-    --color-bg: #FFF9F0;
-    --color-nav-bg: #FFE5D9;
-    --color-text: #333333;
-    --color-admin: #4A90D9;
-}
 
 /* リンク */
 a {
@@ -129,15 +131,6 @@ nav a:hover {
     margin-bottom: 8px;
 }
 
-.score-select {
-    width: 100%;
-    padding: 12px;
-    font-size: 18px;
-    border: 2px solid var(--color-accent);
-    border-radius: 12px;
-    background-color: white;
-    color: var(--color-text);
-}
 
 /* 日記テキストエリア */
 .diary-textarea {
@@ -419,4 +412,9 @@ nav a:hover {
 .task-point-admin {
     color: #888;
     margin-left: 8px;
+}
+
+/* 返信済み */
+.reply-done {
+    color: #888;
 }
