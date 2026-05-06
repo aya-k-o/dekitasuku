@@ -10,8 +10,7 @@
 | 画面 | アクセス方法 |
 |---|---|
 | 子ども画面 | トップページから子どもを選択 |
-| 管理画面 | https://ayako-k.com/dekitasuku/admin.php（パスワード：admin1234） |
-
+| 管理画面 | https://ayako-k.com/dekitasuku/admin.php<br>パスワード：admin1234 |
 ---
 ## ドキュメント
 
