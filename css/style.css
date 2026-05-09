@@ -440,3 +440,86 @@ nav a:hover {
   line-height: 1.6;
   color: #333;
 }
+
+/* ログイン・登録画面 */
+.login-wrap {
+    max-width: 400px;
+    margin: 40px auto;
+    background-color: white;
+    border-radius: 16px;
+    border: 2px solid var(--color-accent);
+    padding: 32px;
+}
+
+.login-wrap h1 {
+    font-size: 28px;
+    font-weight: bold;
+    color: var(--color-primary);
+    text-align: center;
+    margin-bottom: 8px;
+}
+
+.login-wrap h2 {
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--color-text);
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.login-wrap label {
+    display: block;
+    font-size: 14px;
+    font-weight: bold;
+    color: var(--color-text);
+    margin-bottom: 6px;
+}
+
+.login-wrap input {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border: 2px solid var(--color-accent);
+    border-radius: 8px;
+    margin-bottom: 16px;
+    background-color: var(--color-bg);
+}
+
+.login-wrap button {
+    display: block;
+    width: 100%;
+    padding: 14px;
+    background-color: var(--color-primary);
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    border-radius: 999px;
+    cursor: pointer;
+    margin-top: 8px;
+}
+
+.login-wrap button:hover {
+    opacity: 0.9;
+}
+
+.login-wrap p {
+    text-align: center;
+    margin-top: 16px;
+    font-size: 14px;
+}
+
+.error-msg {
+    color: #E53935;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 16px;
+}
+
+.success-msg {
+    color: var(--color-secondary);
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 16px;
+}

@@ -5,4 +5,5 @@
     <a href="admin_rewards.php">報酬</a>
     <a href="admin_diaries.php">日記</a>
     <a href="admin_logs.php">達成ログ</a>
+    <a href="logout.php">ログアウト</a>
 </nav>
