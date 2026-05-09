@@ -82,7 +82,7 @@
 ![子ども管理](docs/admin-children.png)
 
 ---
-## 📖 使い方  ← ここに新規追加
+## 📖 使い方
 
 1. [新規登録](https://ayako-k.com/dekitasuku/register.php)からアカウント作成
 2. ログイン後、管理画面で「子ども管理」から子どもを追加
@@ -143,7 +143,7 @@ reward_logs     ご褒美交換履歴
 ## 開発のこだわりポイント
 
 ### 1. DRY原則の実践
-共通処理を徹底的に分離：
+共通処理を分離：
 - **functions.php**：XSS対策のh()関数、.env読み込み処理
 - **admin_nav.php / child_nav.php**：ナビゲーション共通化
 - **admin_auth.php / user_auth.php**：セッションチェック共通化
