@@ -1,4 +1,5 @@
 <?php
+session_start(); 
 require_once 'admin_auth.php';
 require_once 'functions.php';
 require_once 'db_connect.php';
@@ -9,11 +10,12 @@ $stmt = $pdo->prepare('
            c.name AS child_name
     FROM task_logs tl
     JOIN tasks t ON t.id = tl.task_id AND t.deleted_at IS NULL
-    JOIN children c ON c.id = t.child_id AND c.deleted_at IS NULL
+    JOIN children c ON c.id = t.child_id AND c.deleted_at IS NULL AND c.user_id = ?
     WHERE tl.deleted_at IS NULL
     ORDER BY tl.completed_date DESC
 ');
-$stmt->execute();
+$stmt->execute([$_SESSION['user_id']]);
+
 $logs = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <?php require_once 'header.php'; ?>

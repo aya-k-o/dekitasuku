@@ -2,6 +2,7 @@
 session_start();
 require_once 'functions.php';
 require_once 'db_connect.php';
+require_once 'user_auth.php'; 
 
 $child_id = isset($_SESSION['child_id']) ? (int)$_SESSION['child_id'] : 0;
 
@@ -10,8 +11,8 @@ if ($child_id === 0) {
     exit;
 }
 
-$stmt = $pdo->prepare('SELECT id, name FROM children WHERE id = ? AND deleted_at IS NULL');
-$stmt->execute([$child_id]);
+$stmt = $pdo->prepare('SELECT id, name FROM children WHERE id = ? AND user_id = ? AND deleted_at IS NULL');
+$stmt->execute([$child_id, $_SESSION['user_id']]);
 $child = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if (!$child) {

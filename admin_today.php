@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once 'admin_auth.php';
 require_once 'functions.php';
 require_once 'db_connect.php';
@@ -18,10 +19,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 $face_icons = [1 => '😢', 2 => '😕', 3 => '😊', 4 => '😄', 5 => '🤩'];
-$face_icons = [1 => '😢', 2 => '😕', 3 => '😊', 4 => '😄', 5 => '🤩'];
 
-$children = $pdo->query('SELECT id, name, total_points FROM children WHERE deleted_at IS NULL')->fetchAll(PDO::FETCH_ASSOC);
 
+$stmt = $pdo->prepare('SELECT id, name, total_points FROM children WHERE deleted_at IS NULL AND user_id = ?');
+$stmt->execute([$_SESSION['user_id']]);
+$children = $stmt->fetchAll(PDO::FETCH_ASSOC);
 $today_data = [];
 foreach ($children as $child) {
     $stmt = $pdo->prepare('SELECT task_id FROM task_logs WHERE task_id IN (SELECT id FROM tasks WHERE child_id = ?) AND completed_date = CURDATE() AND deleted_at IS NULL');

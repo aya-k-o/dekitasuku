@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once 'admin_auth.php';
 require_once 'functions.php';
 require_once 'db_connect.php';
@@ -25,12 +26,13 @@ $stmt = $pdo->prepare('
            c.name AS child_name,
            r.content AS reply_content
     FROM diaries d
-    JOIN children c ON c.id = d.child_id AND c.deleted_at IS NULL
+    JOIN children c ON c.id = d.child_id AND c.deleted_at IS NULL AND c.user_id = ?
     LEFT JOIN diary_replies r ON r.diary_id = d.id AND r.deleted_at IS NULL
     WHERE d.deleted_at IS NULL
     ORDER BY d.diary_date DESC
 ');
-$stmt->execute();
+$stmt->execute([$_SESSION['user_id']]);
+
 $diaries = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <?php require_once 'header.php'; ?>

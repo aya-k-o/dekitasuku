@@ -1,11 +1,12 @@
 <?php
-
+session_start();
 require_once 'admin_auth.php';
 require_once 'functions.php';
 require_once 'db_connect.php';
 
-$children = $pdo->query('SELECT id, name FROM children WHERE deleted_at IS NULL')->fetchAll(PDO::FETCH_ASSOC);
-
+$stmt = $pdo->prepare('SELECT id, name FROM children WHERE deleted_at IS NULL AND user_id = ?');
+$stmt->execute([$_SESSION['user_id']]);
+$children = $stmt->fetchAll(PDO::FETCH_ASSOC);
 $child_id = isset($_GET['child_id']) ? (int)$_GET['child_id'] : 0;
 
 if ($child_id === 0 && !empty($children)) {
@@ -36,9 +37,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($action === 'delete') {
         $reward_id = isset($_POST['reward_id']) ? (int)$_POST['reward_id'] : 0;
         if ($reward_id !== 0) {
-            $stmt = $pdo->prepare('UPDATE rewards SET deleted_at = NOW() WHERE id = ?');
-            $stmt->execute([$reward_id]);
-        }
+            $stmt = $pdo->prepare('
+                UPDATE rewards SET deleted_at = NOW() 
+                WHERE id = ? 
+                AND child_id IN (SELECT id FROM children WHERE user_id = ? AND deleted_at IS NULL)
+            ');
+            $stmt->execute([$reward_id, $_SESSION['user_id']]);
+        }    
     }
 
     header('Location: admin_rewards.php?child_id=' . (int)$_POST['child_id']);

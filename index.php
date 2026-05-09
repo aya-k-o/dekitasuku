@@ -2,6 +2,7 @@
 session_start();
 require_once 'functions.php';
 require_once 'db_connect.php';
+require_once 'user_auth.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $child_id = isset($_POST['child_id']) ? (int)$_POST['child_id'] : 0;
@@ -12,8 +13,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     exit;
 }
 
-$stmt = $pdo->prepare('SELECT id, name FROM children WHERE deleted_at IS NULL');
-$stmt->execute();
+// ログイン中のuser_idの子どもだけ取得
+$stmt = $pdo->prepare('SELECT id, name FROM children WHERE deleted_at IS NULL AND user_id = ?');
+$stmt->execute([$_SESSION['user_id']]);
 $children = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <?php require_once 'header.php'; ?>
