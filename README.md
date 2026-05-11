@@ -8,6 +8,10 @@
 
 🌟 **https://ayako-k.com/dekitasuku/**
 
+**デモアカウント**
+- ユーザー名：`demo`
+- パスワード：`demo1234`
+
 | 画面 | アクセス方法 |
 |---|---|
 | 新規登録 | https://ayako-k.com/dekitasuku/register.php |
