@@ -26,4 +26,9 @@ $children = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <button type="submit" class="child-btn"><?= h($child['name']) ?></button>
         </form>
     <?php endforeach; ?>
+     <div class="admin-link-container">
+        <a href="admin_today.php" class="btn-admin-link">
+            <span class="icon">⚙️</span> 管理画面へ
+        </a>
+    </div>
 <?php require_once 'footer.php'; ?>
