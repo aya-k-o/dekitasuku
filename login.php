@@ -14,8 +14,9 @@ if (isset($_SESSION['user_id'])) {
 $error = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $username = trim($_POST['username'] ?? '');
-    $password = trim($_POST['password'] ?? '');
+    // filter_input()で取得＆サニタイズ
+    $username = trim(filter_input(INPUT_POST, 'username', FILTER_SANITIZE_SPECIAL_CHARS) ?? '');
+    $password = trim(filter_input(INPUT_POST, 'password', FILTER_DEFAULT) ?? '');
 
     if ($username === '' || $password === '') {
         $error = 'ユーザー名とパスワードを入力してください';

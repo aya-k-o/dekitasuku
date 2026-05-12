@@ -15,13 +15,18 @@ $error = '';
 $success = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $username = trim($_POST['username'] ?? '');
-    $password = trim($_POST['password'] ?? '');
+    // filter_input()で取得＆サニタイズ
+    $username = trim(filter_input(INPUT_POST, 'username', FILTER_SANITIZE_SPECIAL_CHARS) ?? '');
+    $password = trim(filter_input(INPUT_POST, 'password', FILTER_DEFAULT) ?? '');
 
     if ($username === '' || $password === '') {
         $error = 'ユーザー名とパスワードを入力してください';
-    } elseif (mb_strlen($password) < 8) {
-        $error = 'パスワードは8文字以上にしてください';
+    // 正規表現：ユーザー名は英数字・アンダースコアのみ、3〜20文字
+    } elseif (!preg_match('/^[a-zA-Z0-9_]{3,20}$/', $username)) {
+        $error = 'ユーザー名は3〜20文字の半角英数字・アンダースコアで入力してください';
+    // 正規表現：パスワードは英字と数字を両方含む8文字以上
+    } elseif (!preg_match('/^(?=.*[a-zA-Z])(?=.*[0-9]).{8,}$/', $password)) {
+        $error = 'パスワードは英字と数字を両方含む8文字以上にしてください';
     } else {
         $password_hash = password_hash($password, PASSWORD_DEFAULT);
 
@@ -49,10 +54,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <?php endif; ?>
 
         <form method="post" action="register.php">
-            <label>ユーザー名（ニックネームでOK）</label>
+            <label>ユーザー名（3〜20文字の半角英数字・アンダースコア）</label>
             <input type="text" name="username" required>
 
-            <label>パスワード（8文字以上）</label>
+            <label>パスワード（英字と数字を含む8文字以上）</label>
             <input type="password" name="password" required>
 
             <button type="submit">登録する</button>

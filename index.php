@@ -20,13 +20,20 @@ $children = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <?php require_once 'header.php'; ?>
     <h1>だれがつかうの？</h1>
-    <?php foreach ($children as $child): ?>
-        <form method="post">
-            <input type="hidden" name="child_id" value="<?= h($child['id']) ?>">
-            <button type="submit" class="child-btn"><?= h($child['name']) ?></button>
-        </form>
-    <?php endforeach; ?>
-     <div class="admin-link-container">
+
+   <?php if (empty($children)): ?>
+        <p class="no-children-msg">まだお子さんが登録されていません。</p>
+        <a href="admin_children.php" class="btn-register-child">お子さんを登録する</a>
+    <?php else: ?>
+        <?php foreach ($children as $child): ?>
+            <form method="post">
+                <input type="hidden" name="child_id" value="<?= h($child['id']) ?>">
+                <button type="submit" class="child-btn"><?= h($child['name']) ?></button>
+            </form>
+        <?php endforeach; ?>
+    <?php endif; ?>
+
+    <div class="admin-link-container">
         <a href="admin_today.php" class="btn-admin-link">
             <span class="icon">⚙️</span> 管理画面へ
         </a>

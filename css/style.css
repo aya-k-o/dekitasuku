@@ -553,3 +553,22 @@ nav a:hover {
     font-size: 18px;
     margin-right: 5px;
 }
+/* 子ども未登録時 */
+.no-children-msg {
+    color: #888;
+    font-size: 16px;
+    margin-top: 16px;
+    text-align: center;
+}
+.btn-register-child {
+    display: block;
+    width: fit-content;
+    margin: 12px auto 0;
+    padding: 8px 16px;
+    background-color: #4A90D9;
+    color: white !important;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 8px;
+    text-decoration: none;
+}
