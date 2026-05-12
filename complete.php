@@ -1,8 +1,10 @@
 <?php
 session_start();
-require_once 'functions.php';  // .envを読み込むため
+require_once 'functions.php';
 require_once 'db_connect.php';
 require_once 'user_auth.php';
+
+csrf_check(); // CSRFトークン検証
 
 $task_id = isset($_POST['task_id']) ? (int)$_POST['task_id'] : 0;
 $child_id = isset($_POST['child_id']) ? (int)$_POST['child_id'] : 0;
@@ -16,7 +18,8 @@ $stmt = $pdo->prepare('
     JOIN children c ON c.id = t.child_id AND c.user_id = ? AND c.deleted_at IS NULL
     WHERE t.id = ? AND t.deleted_at IS NULL
 ');
-$stmt->execute([$_SESSION['user_id'], $task_id]);$task = $stmt->fetch(PDO::FETCH_ASSOC);
+$stmt->execute([$_SESSION['user_id'], $task_id]);
+$task = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if (!$task) {
     header('Location: index.php');

@@ -4,7 +4,6 @@ require_once 'admin_auth.php';
 require_once 'functions.php';
 require_once 'db_connect.php';
 
-
 $stmt = $pdo->prepare('SELECT id, name FROM children WHERE deleted_at IS NULL AND user_id = ?');
 $stmt->execute([$_SESSION['user_id']]);
 $children = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -22,6 +21,7 @@ if ($child_id !== 0) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    csrf_check(); // CSRFトークン検証
     $action = isset($_POST['action']) ? $_POST['action'] : '';
 
     if ($action === 'add') {
@@ -67,6 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <?php if ($child_id !== 0): ?>
         <h2>タスク追加</h2>
         <form method="post" class="admin-form">
+            <input type="hidden" name="csrf_token" value="<?= h(csrf_token()) ?>">
             <input type="hidden" name="action" value="add">
             <input type="hidden" name="child_id" value="<?= h($child_id) ?>">
             <input type="text" name="title" placeholder="タスク名" class="admin-input">
@@ -85,6 +86,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <span style="color: #888; margin-left: 8px;"><?= h($task['points']) ?>ポイント</span>
                     </div>
                     <form method="post" class="form-inline">
+                        <input type="hidden" name="csrf_token" value="<?= h(csrf_token()) ?>">
                         <input type="hidden" name="action" value="delete">
                         <input type="hidden" name="task_id" value="<?= h($task['id']) ?>">
                         <input type="hidden" name="child_id" value="<?= h($child_id) ?>">

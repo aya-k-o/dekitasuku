@@ -5,6 +5,7 @@ require_once 'functions.php';
 require_once 'db_connect.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    csrf_check(); // CSRFトークン検証
     $action = isset($_POST['action']) ? $_POST['action'] : '';
 
     if ($action === 'reply') {
@@ -53,6 +54,7 @@ $diaries = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <p class="diary-replied">返信済み：<?= h($diary['reply_content']) ?></p>
     <?php else: ?>
         <form method="post">
+            <input type="hidden" name="csrf_token" value="<?= h(csrf_token()) ?>">
             <input type="hidden" name="action" value="reply">
             <input type="hidden" name="diary_id" value="<?= h($diary['id']) ?>">
             <textarea name="content" rows="3" placeholder="返信を入力" class="admin-input reply-textarea"></textarea><br>

@@ -15,6 +15,7 @@ $error = '';
 $success = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    csrf_check(); // CSRFトークン検証
     // filter_input()で取得＆サニタイズ
     $username = trim(filter_input(INPUT_POST, 'username', FILTER_SANITIZE_SPECIAL_CHARS) ?? '');
     $password = trim(filter_input(INPUT_POST, 'password', FILTER_DEFAULT) ?? '');
@@ -54,6 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <?php endif; ?>
 
         <form method="post" action="register.php">
+            <input type="hidden" name="csrf_token" value="<?= h(csrf_token()) ?>">
             <label>ユーザー名（3〜20文字の半角英数字・アンダースコア）</label>
             <input type="text" name="username" required>
 

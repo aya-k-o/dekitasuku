@@ -21,6 +21,7 @@ if ($child_id !== 0) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    csrf_check(); // CSRFトークン検証
     $action = isset($_POST['action']) ? $_POST['action'] : '';
 
     if ($action === 'add') {
@@ -66,6 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <?php if ($child_id !== 0): ?>
         <h2>報酬追加</h2>
         <form method="post" class="admin-form">
+            <input type="hidden" name="csrf_token" value="<?= h(csrf_token()) ?>">
             <input type="hidden" name="action" value="add">
             <input type="hidden" name="child_id" value="<?= h($child_id) ?>">
             <input type="text" name="title" placeholder="報酬名" class="admin-input">
@@ -84,6 +86,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <span style="color: #888; margin-left: 8px;"><?= h($reward['points_required']) ?>ポイント</span>
                     </div>
                     <form method="post" class="form-inline">
+                        <input type="hidden" name="csrf_token" value="<?= h(csrf_token()) ?>">
                         <input type="hidden" name="action" value="delete">
                         <input type="hidden" name="reward_id" value="<?= h($reward['id']) ?>">
                         <input type="hidden" name="child_id" value="<?= h($child_id) ?>">

@@ -44,6 +44,7 @@ $stmt->execute([$child_id]);
 $today_diary = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  csrf_check(); // CSRFトークン検証
   $content = isset($_POST['content']) ? trim($_POST['content']) : null;
   $body_score = isset($_POST['body_score']) ? (int)$_POST['body_score'] : 0;
   $mind_score = isset($_POST['mind_score']) ? (int)$_POST['mind_score'] : 0;
@@ -83,6 +84,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <button class="btn-done btn-done-completed" disabled>やったね！</button>
       <?php else: ?>
         <form method="post" action="complete.php" class="form-inline">
+          <input type="hidden" name="csrf_token" value="<?= h(csrf_token()) ?>">
           <input type="hidden" name="task_id" value="<?= h($task['id']) ?>">
           <input type="hidden" name="child_id" value="<?= h($child_id) ?>">
           <input type="hidden" name="redirect" value="today">
@@ -111,6 +113,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   
   <?php else: ?>
    <form method="post">
+    <input type="hidden" name="csrf_token" value="<?= h(csrf_token()) ?>">
     <div class="score-group">
       <label class="score-label">からだのちょうしは？</label>
       <div class="face-select" data-name="body_score">

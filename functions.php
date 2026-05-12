@@ -13,3 +13,20 @@ if (file_exists($env_path)) {
 function h($text) {
     return htmlspecialchars($text, ENT_QUOTES, 'UTF-8');
 }
+
+// CSRFトークンを生成してセッションに保存する
+function csrf_token() {
+    if (empty($_SESSION['csrf_token'])) {
+        $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+    }
+    return $_SESSION['csrf_token'];
+}
+
+// CSRFトークンを検証する
+function csrf_check() {
+    $token = $_POST['csrf_token'] ?? '';
+    if (!hash_equals($_SESSION['csrf_token'] ?? '', $token)) {
+        http_response_code(403);
+        exit('不正なリクエストです');
+    }
+}

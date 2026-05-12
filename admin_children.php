@@ -5,6 +5,7 @@ require_once 'functions.php';
 require_once 'db_connect.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    csrf_check(); // CSRFトークン検証
     $action = isset($_POST['action']) ? $_POST['action'] : '';
 
     if ($action === 'add') {
@@ -31,7 +32,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 $stmt = $pdo->prepare('SELECT id, name, total_points FROM children WHERE deleted_at IS NULL AND user_id = ?');
 $stmt->execute([$_SESSION['user_id']]);
 $children = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
 ?>
 <?php require_once 'header.php'; ?>
     <h1>子ども管理</h1>
@@ -39,6 +39,7 @@ $children = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     <h2>子ども追加</h2>
     <form method="post" class="admin-form">
+        <input type="hidden" name="csrf_token" value="<?= h(csrf_token()) ?>">
         <input type="hidden" name="action" value="add">
         <input type="text" name="name" placeholder="子どもの名前" class="admin-input">
         <button type="submit" class="btn-admin">追加</button>
@@ -55,7 +56,9 @@ $children = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <span style="color: #888; margin-left: 8px;"><?= h($child['total_points']) ?>ポイント</span>
                 </div>
                 <div>
-                        <a href="today.php?child_id=<?= h($child['id']) ?>" class="btn-admin" style="text-decoration: none;">子どもの画面を見る</a>                    <form method="post" class="form-inline">
+                    <a href="today.php?child_id=<?= h($child['id']) ?>" class="btn-admin" style="text-decoration: none;">子どもの画面を見る</a>
+                    <form method="post" class="form-inline">
+                        <input type="hidden" name="csrf_token" value="<?= h(csrf_token()) ?>">
                         <input type="hidden" name="action" value="delete">
                         <input type="hidden" name="del_id" value="<?= h($child['id']) ?>">
                         <button type="submit" class="btn-delete">削除</button>
