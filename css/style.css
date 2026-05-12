@@ -206,6 +206,7 @@ nav a:hover {
 /* 管理画面共通 */
 .admin-nav {
     display: flex;
+    flex-wrap: wrap;
     gap: 8px;
     margin-bottom: 24px;
     padding: 8px;
@@ -235,10 +236,11 @@ nav a:hover {
     padding: 16px 20px;
     margin-bottom: 12px;
     display: flex;
+    flex-wrap: wrap; /* ← 追加 */
     align-items: center;
     justify-content: space-between;
+    gap: 8px; /* ← 追加 */
 }
-
 /* 管理画面ボタン */
 .btn-admin {
     padding: 8px 16px;
